@@ -1,4 +1,4 @@
-// na tsekarw to programma kai to grafcet otan to PH einai ok 10/05/25
+// teleutaia enimerwsi 05/06/25
 
 #include <ArduinoJson.h>
 
