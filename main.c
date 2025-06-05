@@ -17,8 +17,8 @@ int pump2Pin = 7;
 int peristalticPumpPin = 8;
 int mixingMotorPin = 9;
 
-int startButtonState = 0;
-int stopButtonState = 0;
+bool startButtonState = 0;
+bool stopButtonState = 0;
 bool isReactorTankFilled = 0;
 bool flotterState = 0;
 bool inControlState = 0;
@@ -87,6 +87,8 @@ void setup() {
     Serial.read(); // Discard all incoming bytes
   }
 
+  startButtonState = 0;
+
 }
 
 void loop() {
@@ -126,7 +128,18 @@ void loop() {
 
       Serial.println("System ready: Waiting for Cycle Startup...");
 
-      if (digitalRead(startButtonPin) == HIGH || getHmiStartButtonState()) {
+      startButtonState = digitalRead(startButtonPin);
+      //hmiStartButtonState = getHmiStartButtonState(); // Dimiourgei bug sto nodered
+
+      if (startButtonState == HIGH || getHmiStartButtonState() == HIGH) {
+
+        // DEBUG
+        Serial.println("Start button pin state: ");
+        Serial.println(startButtonState);
+
+        Serial.println("HMI start button state: ");
+        Serial.println(hmiStartButtonState);
+
         currentStep = STEP_CHECK_REACTOR_TANK_LEVEL;
       }
     }
